@@ -1,4 +1,4 @@
-import Video from '../../database/schemas/Video';
+import Video from '../../schemas/Video';
 import { IVideosRepository } from '../../repositories/IVideosRepository';
 import { ICreateVideoRequestDTO } from './CreateVideoDTO';
 

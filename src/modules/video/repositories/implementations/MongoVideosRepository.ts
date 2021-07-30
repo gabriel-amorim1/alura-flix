@@ -1,6 +1,6 @@
 import { getMongoRepository, MongoRepository } from 'typeorm';
 import { ICreateVideoRequestDTO } from '../../useCases/CreateVideo/CreateVideoDTO';
-import Video from '../../database/schemas/Video';
+import Video from '../../schemas/Video';
 import { IVideosRepository } from '../IVideosRepository';
 
 export class MongoVideosRepository implements IVideosRepository {

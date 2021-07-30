@@ -1,8 +1,9 @@
+/* eslint-disable import/extensions */
 import { Router } from 'express';
-import { createVideoController } from './useCases/CreateVideo';
+import videoRoutes from './modules/video/video.routes';
 
 const router = Router();
 
-router.post('/videos', createVideoController.handle);
+router.use('/api/videos', videoRoutes);
 
 export { router };

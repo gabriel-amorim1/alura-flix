@@ -1,5 +1,6 @@
 import 'reflect-metadata';
 import express from 'express';
+import { router } from './routes';
 
 class App {
     public app: express.Application;
@@ -10,7 +11,8 @@ class App {
     }
 
     private config(): void {
-        this.app.use(express.json())
+        this.app.use(express.json());
+        this.app.use(router);
     }
 }
 

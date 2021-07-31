@@ -30,7 +30,7 @@ export class MongoVideosRepository implements IVideosRepository {
         return { data, count };
     }
 
-    async remove(video: Video): Promise<void> {
-        await this.ormRepository.softRemove(video);
+    async remove(video: Video): Promise<Video> {
+        return this.ormRepository.softRemove(video);
     }
 }

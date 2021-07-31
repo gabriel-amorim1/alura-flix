@@ -5,7 +5,11 @@ export class ListVideosController {
     constructor(private listVideosUseCase: ListVideosUseCase) {}
 
     async handle(request: Request, response: Response): Promise<Response> {
-        const videos = await this.listVideosUseCase.execute();
+        const { showDeletedVideos } = request.query;
+
+        const videos = await this.listVideosUseCase.execute(
+            Boolean(showDeletedVideos) || false,
+        );
 
         return response.json(videos);
     }

@@ -25,8 +25,14 @@ export class MongoVideosRepository implements IVideosRepository {
     }
 
     async list(): Promise<{ data: Video[]; count: number }> {
-        const [data, count] = await this.ormRepository.findAndCount();
+        const [data, count] = await this.ormRepository.findAndCount({
+            where: { deleted_at: null },
+        });
 
         return { data, count };
+    }
+
+    async remove(video: Video): Promise<void> {
+        await this.ormRepository.softRemove(video);
     }
 }

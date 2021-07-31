@@ -6,4 +6,5 @@ export interface IVideosRepository {
     findById(id: string): Promise<Video | undefined>;
     createAndSave(video: ICreateVideoRequestDTO): Promise<Video>;
     list(): Promise<{ data: Video[]; count: number }>;
+    remove(video: Video): Promise<void>;
 }

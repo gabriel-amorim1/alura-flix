@@ -1,5 +1,6 @@
-import Video from '../../schemas/Video';
+import { HttpError } from '../../../../utils/errors/HttpError';
 import { IVideosRepository } from '../../repositories/IVideosRepository';
+import Video from '../../schemas/Video';
 
 export class GetVideoByIdUseCase {
     constructor(private videosRepository: IVideosRepository) {}
@@ -8,7 +9,7 @@ export class GetVideoByIdUseCase {
         const videoFound = await this.videosRepository.findById(id);
 
         if (!videoFound) {
-            throw new Error('Video not found.');
+            throw new HttpError(404, 'Video not found.');
         }
 
         return videoFound;

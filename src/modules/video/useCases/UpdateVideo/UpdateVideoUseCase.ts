@@ -1,5 +1,6 @@
-import Video from '../../schemas/Video';
+import { HttpError } from '../../../../utils/errors/HttpError';
 import { IVideosRepository } from '../../repositories/IVideosRepository';
+import Video from '../../schemas/Video';
 import { IUpdateVideoRequestDTO } from './UpdateVideoDTO';
 
 export class UpdateVideoUseCase {
@@ -9,7 +10,7 @@ export class UpdateVideoUseCase {
         const videoFound = await this.videosRepository.findById(id);
 
         if (!videoFound) {
-            throw new Error('Video not found.');
+            throw new HttpError(404, 'Video not found.');
         }
 
         if (data.url) {
@@ -18,7 +19,7 @@ export class UpdateVideoUseCase {
             );
 
             if (videoAlreadyExists) {
-                throw new Error('This url is already registered.');
+                throw new HttpError(400, 'This url is already registered.');
             }
         }
 

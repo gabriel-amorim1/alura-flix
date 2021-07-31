@@ -1,24 +1,19 @@
 import { Request, Response } from 'express';
+import { ICreateVideoRequestDTO } from './CreateVideoDTO';
 import { CreateVideoUseCase } from './CreateVideoUseCase';
+import { createVideoSchema } from './CreateVideoValidators';
 
 export class CreateVideoController {
     constructor(private createVideoUseCase: CreateVideoUseCase) {}
 
     async handle(request: Request, response: Response): Promise<Response> {
-        const { title, description, url } = request.body;
+        const data = (await createVideoSchema.validate(request.body, {
+            abortEarly: false,
+            stripUnknown: true,
+        })) as ICreateVideoRequestDTO;
 
-        try {
-            const videoCreated = await this.createVideoUseCase.execute({
-                title,
-                description,
-                url,
-            });
+        const videoCreated = await this.createVideoUseCase.execute(data);
 
-            return response.status(201).json(videoCreated);
-        } catch (error) {
-            return response.status(400).json({
-                message: error.message || 'Unexpected error.',
-            });
-        }
+        return response.status(201).json(videoCreated);
     }
 }

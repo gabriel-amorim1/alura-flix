@@ -1,20 +1,18 @@
 import { Request, Response } from 'express';
+import { idValidationSchema } from '../../../../utils/validators/common';
 import { GetVideoByIdUseCase } from './GetVideoByIdUseCase';
 
 export class GetVideoByIdController {
     constructor(private getVideoByIdUseCase: GetVideoByIdUseCase) {}
 
     async handle(request: Request, response: Response): Promise<Response> {
-        const { id } = request.params;
+        const { id } = await idValidationSchema.validate(request.params, {
+            abortEarly: false,
+            stripUnknown: true,
+        });
 
-        try {
-            const res = await this.getVideoByIdUseCase.execute(id);
+        const res = await this.getVideoByIdUseCase.execute(id);
 
-            return response.json(res);
-        } catch (error) {
-            return response.status(400).json({
-                message: error.message || 'Unexpected error.',
-            });
-        }
+        return response.json(res);
     }
 }

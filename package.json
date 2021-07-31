@@ -7,12 +7,16 @@
         "dev": "tsnd --transpile-only --respawn --ignore-watch node_modules src/server.ts"
     },
     "dependencies": {
+        "cors": "^2.8.5",
         "express": "^4.17.1",
+        "express-async-errors": "^3.1.1",
         "mongodb": "3",
         "reflect-metadata": "^0.1.13",
-        "typeorm": "^0.2.34"
+        "typeorm": "^0.2.34",
+        "yup": "^0.32.9"
     },
     "devDependencies": {
+        "@types/cors": "^2.8.12",
         "@types/express": "^4.17.13",
         "@typescript-eslint/eslint-plugin": "^4.28.5",
         "@typescript-eslint/parser": "^4.28.5",

@@ -1,25 +1,24 @@
 import { Request, Response } from 'express';
+import { idValidationSchema } from '../../../../utils/validators/common';
 import { UpdateVideoUseCase } from './UpdateVideoUseCase';
+import { updateVideoValidationSchema } from './UpdateVideoValidators';
 
 export class UpdateVideoController {
     constructor(private updateVideoUseCase: UpdateVideoUseCase) {}
 
     async handle(request: Request, response: Response): Promise<Response> {
-        const { title, description, url } = request.body;
-        const { id } = request.params;
+        const body = await updateVideoValidationSchema.validate(request.body, {
+            abortEarly: false,
+            stripUnknown: true,
+        });
 
-        try {
-            const videoUpdated = await this.updateVideoUseCase.execute(id, {
-                title,
-                description,
-                url,
-            });
+        const { id } = await idValidationSchema.validate(request.params, {
+            abortEarly: false,
+            stripUnknown: true,
+        });
 
-            return response.json(videoUpdated);
-        } catch (error) {
-            return response.status(400).json({
-                message: error.message || 'Unexpected error.',
-            });
-        }
+        const videoUpdated = await this.updateVideoUseCase.execute(id, body);
+
+        return response.json(videoUpdated);
     }
 }

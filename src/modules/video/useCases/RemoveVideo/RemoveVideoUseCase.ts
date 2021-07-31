@@ -1,3 +1,4 @@
+import { HttpError } from '../../../../utils/errors/HttpError';
 import { IVideosRepository } from '../../repositories/IVideosRepository';
 
 export class RemoveVideoUseCase {
@@ -7,11 +8,11 @@ export class RemoveVideoUseCase {
         const videoFound = await this.videosRepository.findById(id);
 
         if (!videoFound) {
-            throw new Error('Video not found.');
+            throw new HttpError(404, 'Video not found.');
         }
 
         if (videoFound.deleted_at) {
-            throw new Error('This video is already deleted.');
+            throw new HttpError(400, 'This video is already deleted.');
         }
 
         await this.videosRepository.remove(videoFound);

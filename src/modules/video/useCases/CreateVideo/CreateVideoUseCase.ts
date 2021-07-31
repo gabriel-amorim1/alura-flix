@@ -1,5 +1,6 @@
-import Video from '../../schemas/Video';
+import { HttpError } from '../../../../utils/errors/HttpError';
 import { IVideosRepository } from '../../repositories/IVideosRepository';
+import Video from '../../schemas/Video';
 import { ICreateVideoRequestDTO } from './CreateVideoDTO';
 
 export class CreateVideoUseCase {
@@ -9,7 +10,7 @@ export class CreateVideoUseCase {
         const videoAlreadyExists = await this.videosRepository.findByUrl(data.url);
 
         if (videoAlreadyExists) {
-            throw new Error('This url is already registered.');
+            throw new HttpError(400, 'This url is already registered.');
         }
 
         return this.videosRepository.createAndSave(data);

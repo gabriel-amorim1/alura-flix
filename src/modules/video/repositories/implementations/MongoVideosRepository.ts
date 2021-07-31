@@ -14,6 +14,10 @@ export class MongoVideosRepository implements IVideosRepository {
         return this.ormRepository.findOne({ where: { url } });
     }
 
+    async findById(id: string): Promise<Video | undefined> {
+        return this.ormRepository.findOne(id);
+    }
+
     async createAndSave(data: ICreateVideoRequestDTO): Promise<Video> {
         const video = this.ormRepository.create(data);
 

@@ -19,6 +19,12 @@ class MongoCategoriesRepository implements ICategoriesRepository {
 
         return this.ormRepository.save(category);
     }
+
+    async list(): Promise<{ data: Category[]; count: number }> {
+        const [data, count] = await this.ormRepository.findAndCount();
+
+        return { data, count };
+    }
 }
 
 export { MongoCategoriesRepository };

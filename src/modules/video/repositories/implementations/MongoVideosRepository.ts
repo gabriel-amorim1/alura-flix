@@ -24,7 +24,7 @@ export class MongoVideosRepository implements IVideosRepository {
         return this.ormRepository.save(video);
     }
 
-    async list(options: any): Promise<{ data: Video[]; count: number }> {
+    async list(options: Partial<Video>): Promise<{ data: Video[]; count: number }> {
         const [data, count] = await this.ormRepository.findAndCount(options);
 
         return { data, count };

@@ -4,5 +4,5 @@ module.exports = {
     port: 27017,
     database: 'aluraflix',
     useUnifiedTopology: true,
-    entities: [' src/modules/**/schemas/*.ts'],
+    entities: ['src/modules/**/schemas/*.ts'],
 };

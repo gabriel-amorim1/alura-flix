@@ -1,1 +1,1 @@
-import '../modules/video/containers';
+import '../modules/video/VideoContainers';

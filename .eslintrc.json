@@ -32,7 +32,7 @@
             {
               ".ts": "always"
             }
-          ],
+        ],
         "@typescript-eslint/naming-convention": [
             "error",
             {
@@ -47,7 +47,8 @@
                 "code": 300,
                 "ignoreStrings": true,
                 "ignoreTemplateLiterals": true
-            }]
+            }
+        ]
     },
     "overrides": [
         {

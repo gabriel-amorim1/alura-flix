@@ -1,5 +1,5 @@
 import sinon from 'sinon';
-import ObjectID from 'bson-objectid';
+import Bson_ObjectId from 'bson-objectid';
 import { ValidationError } from 'yup';
 import { verifyIfParamIsInErrors } from '../../../../../utils/errors/functions/verifyIfParamIsInErrors';
 import { GetCategoryByIdController } from '../GetCategoryByIdController';
@@ -33,7 +33,7 @@ describe('GetCategoryByIdController Context', () => {
     });
     it('should return status 200 and category found', async () => {
         const request: any = {
-            params: { id: new ObjectID().toHexString().toString() },
+            params: { id: new Bson_ObjectId().toHexString().toString() },
         };
 
         getCategoryByIdUseCaseSpy.execute.resolves(<any>request.params.id);

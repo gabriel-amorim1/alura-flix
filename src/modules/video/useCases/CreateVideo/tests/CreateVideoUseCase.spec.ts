@@ -1,5 +1,5 @@
 import sinon from 'sinon';
-import { v4 } from 'uuid';
+import Bson_ObjectId from 'bson-objectid';
 import { HttpError } from '../../../../../utils/errors/HttpError';
 import { MongoVideosRepository } from '../../../repositories/implementations/MongoVideosRepository';
 import { CreateVideoUseCase } from '../CreateVideoUseCase';
@@ -27,7 +27,7 @@ describe('CreateVideoUseCase Context', () => {
 
         const expectedRes = {
             ...data,
-            _id: v4() as any,
+            _id: new Bson_ObjectId().toHexString() as any,
             created_at: new Date(),
             updated_at: new Date(),
             deleted_at: null,

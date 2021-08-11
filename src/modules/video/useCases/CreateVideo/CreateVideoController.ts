@@ -13,7 +13,8 @@ export class CreateVideoController {
         })) as ICreateVideoRequestDTO;
 
         const videoCreated = await this.createVideoUseCase.execute(data);
+        const res = response.status(201).json(videoCreated);
 
-        return response.status(201).json(videoCreated);
+        return res;
     }
 }

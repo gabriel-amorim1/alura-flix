@@ -1,5 +1,7 @@
 import sinon from 'sinon';
-import { v4 } from 'uuid';
+import ObjectID from 'bson-objectid';
+import { ValidationError } from 'yup';
+import { verifyIfParamIsInErrors } from '../../../../../utils/errors/functions/verifyIfParamIsInErrors';
 import { GetCategoryByIdController } from '../GetCategoryByIdController';
 import { GetCategoryByIdUseCase } from '../GetCategoryByIdUseCase';
 
@@ -29,9 +31,10 @@ describe('GetCategoryByIdController Context', () => {
     afterEach(() => {
         sinon.restore();
     });
-
     it('should return status 200 and category found', async () => {
-        const request: any = { params: { id: v4() } };
+        const request: any = {
+            params: { id: new ObjectID().toHexString().toString() },
+        };
 
         getCategoryByIdUseCaseSpy.execute.resolves(<any>request.params.id);
 
@@ -41,5 +44,18 @@ describe('GetCategoryByIdController Context', () => {
         )) as any;
 
         expect(response.body).toEqual(request.params.id);
+    });
+
+    it('should return an ValidationError - Id not valid', async () => {
+        expect.hasAssertions();
+
+        const request: any = { params: { id: 'invalid-id' } };
+
+        try {
+            await getCategoryByIdController.handle(request, mockResponse());
+        } catch (error) {
+            expect(error).toBeInstanceOf(ValidationError);
+            expect(verifyIfParamIsInErrors(error, ['id'])).toBeTruthy();
+        }
     });
 });

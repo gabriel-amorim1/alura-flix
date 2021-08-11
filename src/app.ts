@@ -1,5 +1,4 @@
 import 'reflect-metadata';
-import bodyParser from 'body-parser';
 import cors from 'cors';
 import express, { Request, Response, NextFunction } from 'express';
 
@@ -19,8 +18,8 @@ class App {
 
     private config(): void {
         this.app.use(cors());
-        this.app.use(bodyParser.json());
-        this.app.use(bodyParser.urlencoded({ extended: false }));
+        this.app.use(express.json());
+        this.app.use(express.urlencoded({ extended: false }));
         this.app.use(router);
         this.app.use(App.errorHandling);
         this.app.disable('x-powered-by');

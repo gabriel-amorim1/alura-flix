@@ -1,9 +1,14 @@
 import { Request, Response } from 'express';
+import { delay, inject, injectable } from 'tsyringe';
 import { ListVideosUseCase } from './ListVideosUseCase';
 import { listVideosValidatorSchema } from './ListVideosValidators';
 
+@injectable()
 export class ListVideosController {
-    constructor(private listVideosUseCase: ListVideosUseCase) {}
+    constructor(
+        @inject(delay(() => ListVideosUseCase))
+        private listVideosUseCase: ListVideosUseCase,
+    ) {}
 
     async handle(request: Request, response: Response): Promise<Response> {
         const query = await listVideosValidatorSchema.validate(request.query, {

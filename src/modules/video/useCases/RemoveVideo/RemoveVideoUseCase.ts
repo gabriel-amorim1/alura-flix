@@ -1,8 +1,14 @@
+import { delay, inject, injectable } from 'tsyringe';
 import { HttpError } from '../../../../utils/errors/HttpError';
+import { MongoVideosRepository } from '../../repositories/implementations/MongoVideosRepository';
 import { IVideosRepository } from '../../repositories/IVideosRepository';
 
+@injectable()
 export class RemoveVideoUseCase {
-    constructor(private videosRepository: IVideosRepository) {}
+    constructor(
+        @inject(delay(() => MongoVideosRepository))
+        private videosRepository: IVideosRepository,
+    ) {}
 
     async execute(id: string): Promise<void> {
         const videoFound = await this.videosRepository.findById(id);

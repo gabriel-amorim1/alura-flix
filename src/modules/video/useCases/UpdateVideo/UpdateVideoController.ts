@@ -1,10 +1,15 @@
 import { Request, Response } from 'express';
+import { delay, inject, injectable } from 'tsyringe';
 import { idValidationSchema } from '../../../../utils/validators/common';
 import { UpdateVideoUseCase } from './UpdateVideoUseCase';
 import { updateVideoValidationSchema } from './UpdateVideoValidators';
 
+@injectable()
 export class UpdateVideoController {
-    constructor(private updateVideoUseCase: UpdateVideoUseCase) {}
+    constructor(
+        @inject(delay(() => UpdateVideoUseCase))
+        private updateVideoUseCase: UpdateVideoUseCase,
+    ) {}
 
     async handle(request: Request, response: Response): Promise<Response> {
         const body = await updateVideoValidationSchema.validate(request.body, {

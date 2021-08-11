@@ -26,6 +26,7 @@
         "no-useless-constructor": "off",
         "no-restricted-syntax": "off",
         "no-restricted-globals": "off",
+        "no-underscore-dangle": [0, { "allow": ["__id"] }],
         "import/extensions": [
             "error",
             "never",

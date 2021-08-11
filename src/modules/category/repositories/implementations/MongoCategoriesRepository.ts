@@ -14,6 +14,10 @@ class MongoCategoriesRepository implements ICategoriesRepository {
         return this.ormRepository.findOne({ where: { title } });
     }
 
+    findById(id: string): Promise<Category | undefined> {
+        return this.ormRepository.findOne(id);
+    }
+
     createAndSave(data: ICreateCategoryRequestDTO): Promise<Category> {
         const category = this.ormRepository.create(data);
 

@@ -1,9 +1,14 @@
 import { Request, Response } from 'express';
+import { delay, inject, injectable } from 'tsyringe';
 import { CreateCategoryUseCase } from './CreateCategoryUseCase';
 import { createCategorySchema } from './CreateCategoryValidators';
 
+@injectable()
 class CreateCategoryController {
-    constructor(private createCategoryUseCase: CreateCategoryUseCase) {}
+    constructor(
+        @inject(delay(() => CreateCategoryUseCase))
+        private createCategoryUseCase: CreateCategoryUseCase,
+    ) {}
 
     async handle(request: Request, response: Response): Promise<Response> {
         const body = await createCategorySchema.validate(request.body, {

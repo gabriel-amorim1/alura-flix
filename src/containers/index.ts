@@ -1,2 +1,2 @@
-import '../modules/video/VideoContainers';
+import '../modules/video/containers';
 import '../modules/category/containers';

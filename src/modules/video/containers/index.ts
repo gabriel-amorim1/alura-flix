@@ -1,16 +1,16 @@
 import { container } from 'tsyringe';
-import { MongoVideosRepository } from './repositories/implementations/MongoVideosRepository';
-import { IVideosRepository } from './repositories/IVideosRepository';
-import { CreateVideoController } from './useCases/CreateVideo/CreateVideoController';
-import { CreateVideoUseCase } from './useCases/CreateVideo/CreateVideoUseCase';
-import { GetVideoByIdController } from './useCases/GetVideoById/GetVideoByIdController';
-import { GetVideoByIdUseCase } from './useCases/GetVideoById/GetVideoByIdUseCase';
-import { ListVideosController } from './useCases/ListVideos/ListVideosController';
-import { ListVideosUseCase } from './useCases/ListVideos/ListVideosUseCase';
-import { RemoveVideoController } from './useCases/RemoveVideo/RemoveVideoController';
-import { RemoveVideoUseCase } from './useCases/RemoveVideo/RemoveVideoUseCase';
-import { UpdateVideoController } from './useCases/UpdateVideo/UpdateVideoController';
-import { UpdateVideoUseCase } from './useCases/UpdateVideo/UpdateVideoUseCase';
+import { MongoVideosRepository } from '../repositories/implementations/MongoVideosRepository';
+import { IVideosRepository } from '../repositories/IVideosRepository';
+import { CreateVideoController } from '../useCases/CreateVideo/CreateVideoController';
+import { CreateVideoUseCase } from '../useCases/CreateVideo/CreateVideoUseCase';
+import { GetVideoByIdController } from '../useCases/GetVideoById/GetVideoByIdController';
+import { GetVideoByIdUseCase } from '../useCases/GetVideoById/GetVideoByIdUseCase';
+import { ListVideosController } from '../useCases/ListVideos/ListVideosController';
+import { ListVideosUseCase } from '../useCases/ListVideos/ListVideosUseCase';
+import { RemoveVideoController } from '../useCases/RemoveVideo/RemoveVideoController';
+import { RemoveVideoUseCase } from '../useCases/RemoveVideo/RemoveVideoUseCase';
+import { UpdateVideoController } from '../useCases/UpdateVideo/UpdateVideoController';
+import { UpdateVideoUseCase } from '../useCases/UpdateVideo/UpdateVideoUseCase';
 
 container.registerSingleton<IVideosRepository>(
     'MongoVideosRepository',

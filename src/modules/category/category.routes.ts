@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { container } from 'tsyringe';
 import { CreateCategoryController } from './useCases/CreateCategory/CreateCategoryController';
-import listCategoriesController from './useCases/ListCategories';
+import { ListCategoriesController } from './useCases/ListCategories/ListCategoriesController';
 
 const router = Router();
 
@@ -10,7 +10,7 @@ router.post('/', async (req, res) =>
 );
 
 router.get('/', async (req, res) =>
-    (await listCategoriesController()).handle(req, res),
+    container.resolve(ListCategoriesController).handle(req, res),
 );
 
 export default router;

@@ -1,8 +1,14 @@
-import Category from '../../schemas/Category';
+import { delay, inject, injectable } from 'tsyringe';
 import { ICategoriesRepository } from '../../repositories/ICategoriesRepository';
+import { MongoCategoriesRepository } from '../../repositories/implementations/MongoCategoriesRepository';
+import Category from '../../schemas/Category';
 
+@injectable()
 class ListCategoriesUseCase {
-    constructor(private categoriesRepository: ICategoriesRepository) {}
+    constructor(
+        @inject(delay(() => MongoCategoriesRepository))
+        private categoriesRepository: ICategoriesRepository,
+    ) {}
 
     async execute(): Promise<{ data: Category[]; count: number }> {
         return this.categoriesRepository.list();

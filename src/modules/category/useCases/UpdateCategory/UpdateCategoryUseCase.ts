@@ -1,4 +1,5 @@
 import { delay, inject, injectable } from 'tsyringe';
+import { HttpError } from '../../../../utils/errors/HttpError';
 import { ICategoriesRepository } from '../../repositories/ICategoriesRepository';
 import { MongoCategoriesRepository } from '../../repositories/implementations/MongoCategoriesRepository';
 import Category from '../../schemas/Category';
@@ -16,6 +17,10 @@ class UpdateCategoryUseCase {
         updateBody: IUpdateCategoryRequestDTO,
     ): Promise<Category> {
         const categoryFound = await this.categoriesRepository.findById(id);
+
+        if (!categoryFound) {
+            throw new HttpError(404, 'Category not found');
+        }
 
         if (updateBody.title) {
             await this.categoriesRepository.findByTitle(updateBody.title);

@@ -1,5 +1,6 @@
 import Bson_ObjectId from 'bson-objectid';
 import sinon from 'sinon';
+import { HttpError } from '../../../../../utils/errors/HttpError';
 import { ICategoriesRepository } from '../../../repositories/ICategoriesRepository';
 import { MongoCategoriesRepository } from '../../../repositories/implementations/MongoCategoriesRepository';
 import Category from '../../../schemas/Category';
@@ -65,5 +66,26 @@ describe('UpdateCategoryUseCase Context', () => {
                 updateMockedCategory,
             ),
         ).toBeTruthy();
+    });
+
+    it('should not be able to update a category by id - Category not found', async () => {
+        expect.hasAssertions();
+
+        const id = new Bson_ObjectId().toHexString().toString();
+
+        mongoCategoryRepositorySpy.findById.resolves(undefined);
+
+        try {
+            await updateCategoryUseCase.execute(id, {});
+        } catch (error) {
+            expect(error).toBeInstanceOf(HttpError);
+            expect(error.code).toBe(404);
+            expect(error.message).toBe('Category not found');
+            expect(
+                mongoCategoryRepositorySpy.findById.calledOnceWithExactly(id),
+            ).toBeTruthy();
+            expect(mongoCategoryRepositorySpy.findByTitle.notCalled).toBeTruthy();
+            expect(mongoCategoryRepositorySpy.createAndSave.notCalled).toBeTruthy();
+        }
     });
 });

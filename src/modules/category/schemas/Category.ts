@@ -1,6 +1,7 @@
 import {
     Column,
     CreateDateColumn,
+    DeleteDateColumn,
     Entity,
     ObjectID,
     ObjectIdColumn,
@@ -23,6 +24,9 @@ class Category {
 
     @UpdateDateColumn()
     updated_at: Date;
+
+    @DeleteDateColumn()
+    deleted_at: Date | null;
 }
 
 export default Category;

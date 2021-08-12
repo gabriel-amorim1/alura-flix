@@ -29,6 +29,10 @@ class MongoCategoriesRepository implements ICategoriesRepository {
 
         return { data, count };
     }
+
+    async remove(category: Category): Promise<Category> {
+        return this.ormRepository.softRemove(category);
+    }
 }
 
 export { MongoCategoriesRepository };

@@ -9,4 +9,5 @@ export interface ICategoriesRepository {
         data: ICreateCategoryRequestDTO | IUpdateCategoryRequestDTO,
     ): Promise<Category>;
     list(): Promise<{ data: Category[]; count: number }>;
+    remove(category: Category): Promise<Category>;
 }

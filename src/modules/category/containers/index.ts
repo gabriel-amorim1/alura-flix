@@ -7,6 +7,10 @@ import { GetCategoryByIdController } from '../useCases/GetCategoryById/GetCatego
 import { GetCategoryByIdUseCase } from '../useCases/GetCategoryById/GetCategoryByIdUseCase';
 import { ListCategoriesController } from '../useCases/ListCategories/ListCategoriesController';
 import { ListCategoriesUseCase } from '../useCases/ListCategories/ListCategoriesUseCase';
+import { RemoveCategoryController } from '../useCases/RemoveCategory/RemoveCategoryController';
+import { RemoveCategoryUseCase } from '../useCases/RemoveCategory/RemoveCategoryUseCase';
+import { UpdateCategoryController } from '../useCases/UpdateCategory/UpdateCategoryController';
+import { UpdateCategoryUseCase } from '../useCases/UpdateCategory/UpdateCategoryUseCase';
 
 container.registerSingleton<ICategoriesRepository>(
     'MongoCategoriesRepository',
@@ -41,4 +45,24 @@ container.registerSingleton<GetCategoryByIdUseCase>(
 container.registerSingleton<GetCategoryByIdController>(
     'GetCategoryByIdController',
     GetCategoryByIdController,
+);
+
+container.registerSingleton<UpdateCategoryUseCase>(
+    'UpdateCategoryUseCase',
+    UpdateCategoryUseCase,
+);
+
+container.registerSingleton<UpdateCategoryController>(
+    'UpdateCategoryController',
+    UpdateCategoryController,
+);
+
+container.registerSingleton<RemoveCategoryUseCase>(
+    'RemoveCategoryUseCase',
+    RemoveCategoryUseCase,
+);
+
+container.registerSingleton<RemoveCategoryController>(
+    'RemoveCategoryController',
+    RemoveCategoryController,
 );

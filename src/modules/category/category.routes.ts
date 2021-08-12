@@ -4,6 +4,7 @@ import { CreateCategoryController } from './useCases/CreateCategory/CreateCatego
 import { ListCategoriesController } from './useCases/ListCategories/ListCategoriesController';
 import { GetCategoryByIdController } from './useCases/GetCategoryById/GetCategoryByIdController';
 import { UpdateCategoryController } from './useCases/UpdateCategory/UpdateCategoryController';
+import { RemoveCategoryController } from './useCases/RemoveCategory/RemoveCategoryController';
 
 const router = Router();
 
@@ -21,6 +22,10 @@ router.get('/:id', async (req, res) =>
 
 router.put('/:id', async (req, res) =>
     container.resolve(UpdateCategoryController).handle(req, res),
+);
+
+router.delete('/:id', async (req, res) =>
+    container.resolve(RemoveCategoryController).handle(req, res),
 );
 
 export default router;

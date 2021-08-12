@@ -38,6 +38,7 @@ describe('UpdateCategoryUseCase Context', () => {
             color: 'Test Color',
             created_at: new Date(),
             updated_at: new Date(),
+            deleted_at: null,
         };
 
         const updateMockedCategory: Category = {
@@ -105,6 +106,7 @@ describe('UpdateCategoryUseCase Context', () => {
             color: 'Test Color',
             created_at: new Date(),
             updated_at: new Date(),
+            deleted_at: null,
         };
 
         mongoCategoryRepositorySpy.findById.resolves(findByIdMockedCategory);

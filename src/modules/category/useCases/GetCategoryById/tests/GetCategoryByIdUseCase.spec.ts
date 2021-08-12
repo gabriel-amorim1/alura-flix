@@ -33,6 +33,7 @@ describe('GetCategoryByIdUseCase Context', () => {
             color: 'white',
             created_at: new Date(),
             updated_at: new Date(),
+            deleted_at: null,
         };
 
         mongoCategoryRepositorySpy.findById.resolves(category);

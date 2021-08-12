@@ -8,7 +8,7 @@
     "strict": true,
     "strictPropertyInitialization": false,
     "moduleResolution": "node",
-    "baseUrl": "./src",
+    "baseUrl": "./lib",
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "experimentalDecorators": true,

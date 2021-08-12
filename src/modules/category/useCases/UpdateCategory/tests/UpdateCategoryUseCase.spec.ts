@@ -88,4 +88,43 @@ describe('UpdateCategoryUseCase Context', () => {
             expect(mongoCategoryRepositorySpy.createAndSave.notCalled).toBeTruthy();
         }
     });
+
+    it('should not be able to update a category by id - Title is already registered', async () => {
+        expect.hasAssertions();
+
+        const id = new Bson_ObjectId().toHexString().toString();
+
+        const updateBody = {
+            title: 'Test Title Update',
+            color: 'Test Color Update',
+        };
+
+        const findByIdMockedCategory: Category = {
+            _id: id as any,
+            title: 'Test Title',
+            color: 'Test Color',
+            created_at: new Date(),
+            updated_at: new Date(),
+        };
+
+        mongoCategoryRepositorySpy.findById.resolves(findByIdMockedCategory);
+        mongoCategoryRepositorySpy.findByTitle.resolves(findByIdMockedCategory);
+
+        try {
+            await updateCategoryUseCase.execute(id, updateBody);
+        } catch (error) {
+            expect(error).toBeInstanceOf(HttpError);
+            expect(error.code).toBe(400);
+            expect(error.message).toBe('Title is already registered');
+            expect(
+                mongoCategoryRepositorySpy.findById.calledOnceWithExactly(id),
+            ).toBeTruthy();
+            expect(
+                mongoCategoryRepositorySpy.findByTitle.calledOnceWithExactly(
+                    updateBody.title,
+                ),
+            ).toBeTruthy();
+            expect(mongoCategoryRepositorySpy.createAndSave.notCalled).toBeTruthy();
+        }
+    });
 });

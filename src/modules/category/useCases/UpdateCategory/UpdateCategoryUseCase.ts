@@ -23,7 +23,12 @@ class UpdateCategoryUseCase {
         }
 
         if (updateBody.title) {
-            await this.categoriesRepository.findByTitle(updateBody.title);
+            const isTitleAlreadyRegistered =
+                await this.categoriesRepository.findByTitle(updateBody.title);
+
+            if (isTitleAlreadyRegistered) {
+                throw new HttpError(400, 'Title is already registered');
+            }
         }
 
         return this.categoriesRepository.createAndSave({

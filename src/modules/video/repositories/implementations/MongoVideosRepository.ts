@@ -1,6 +1,6 @@
-import { getMongoRepository, MongoRepository } from 'typeorm';
-import { ICreateVideoRequestDTO } from '../../useCases/CreateVideo/CreateVideoDTO';
+import { FindManyOptions, getMongoRepository, MongoRepository } from 'typeorm';
 import Video from '../../schemas/Video';
+import { ICreateVideoRequestDTO } from '../../useCases/CreateVideo/CreateVideoDTO';
 import { IVideosRepository } from '../IVideosRepository';
 
 export class MongoVideosRepository implements IVideosRepository {
@@ -24,7 +24,9 @@ export class MongoVideosRepository implements IVideosRepository {
         return this.ormRepository.save(video);
     }
 
-    async list(options: Partial<Video>): Promise<{ data: Video[]; count: number }> {
+    async list(
+        options: FindManyOptions<Video>,
+    ): Promise<{ data: Video[]; count: number }> {
         const [data, count] = await this.ormRepository.findAndCount(options);
 
         return { data, count };

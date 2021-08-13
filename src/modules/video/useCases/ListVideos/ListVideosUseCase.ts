@@ -1,4 +1,5 @@
 import { delay, inject, injectable } from 'tsyringe';
+import { FindManyOptions } from 'typeorm';
 import { MongoVideosRepository } from '../../repositories/implementations/MongoVideosRepository';
 import { IVideosRepository } from '../../repositories/IVideosRepository';
 import Video from '../../schemas/Video';
@@ -13,7 +14,7 @@ export class ListVideosUseCase {
     async execute(
         showDeletedVideos: boolean,
     ): Promise<{ data: Video[]; count: number }> {
-        let options;
+        let options: FindManyOptions<Video> = {};
 
         if (!showDeletedVideos) {
             options = { where: { deleted_at: null } };

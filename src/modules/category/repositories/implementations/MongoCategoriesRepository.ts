@@ -1,4 +1,4 @@
-import { getMongoRepository, MongoRepository } from 'typeorm';
+import { FindManyOptions, getMongoRepository, MongoRepository } from 'typeorm';
 import { ICreateCategoryRequestDTO } from '../../useCases/CreateCategory/CreateCategoryDTO';
 import Category from '../../schemas/Category';
 import { ICategoriesRepository } from '../ICategoriesRepository';
@@ -24,8 +24,10 @@ class MongoCategoriesRepository implements ICategoriesRepository {
         return this.ormRepository.save(category);
     }
 
-    async list(): Promise<{ data: Category[]; count: number }> {
-        const [data, count] = await this.ormRepository.findAndCount();
+    async list(
+        options: FindManyOptions<Category>,
+    ): Promise<{ data: Category[]; count: number }> {
+        const [data, count] = await this.ormRepository.findAndCount(options);
 
         return { data, count };
     }

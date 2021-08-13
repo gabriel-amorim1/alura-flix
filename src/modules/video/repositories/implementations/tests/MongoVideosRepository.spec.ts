@@ -1,9 +1,9 @@
 /* eslint-disable no-underscore-dangle */
 import { Connection } from 'typeorm';
 import { v4 as uuid } from 'uuid';
-import { MongoVideosRepository } from '../implementations/MongoVideosRepository';
-import connect, { stopMongo } from '../../../../database/connection';
-import Video from '../../schemas/Video';
+import { MongoVideosRepository } from '../MongoVideosRepository';
+import connect, { stopMongo } from '../../../../../database/connection';
+import Video from '../../../schemas/Video';
 
 describe('MongoVideosRepository Context', () => {
     let mongoVideosRepository: MongoVideosRepository;

@@ -1,3 +1,4 @@
+import { FindManyOptions } from 'typeorm';
 import Category from '../schemas/Category';
 import { ICreateCategoryRequestDTO } from '../useCases/CreateCategory/CreateCategoryDTO';
 import { IUpdateCategoryRequestDTO } from '../useCases/UpdateCategory/UpdateCategoryDTO';
@@ -8,6 +9,8 @@ export interface ICategoriesRepository {
     createAndSave(
         data: ICreateCategoryRequestDTO | IUpdateCategoryRequestDTO,
     ): Promise<Category>;
-    list(): Promise<{ data: Category[]; count: number }>;
+    list(
+        options: FindManyOptions<Category>,
+    ): Promise<{ data: Category[]; count: number }>;
     remove(category: Category): Promise<Category>;
 }

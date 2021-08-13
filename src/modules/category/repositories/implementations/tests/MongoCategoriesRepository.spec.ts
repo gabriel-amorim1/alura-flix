@@ -1,4 +1,3 @@
-/* eslint-disable no-underscore-dangle */
 import { Connection } from 'typeorm';
 import { MongoCategoriesRepository } from '../MongoCategoriesRepository';
 import connect, { stopMongo } from '../../../../../database/connection';

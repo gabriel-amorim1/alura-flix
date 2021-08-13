@@ -1,4 +1,3 @@
-/* eslint-disable no-underscore-dangle */
 import { Connection } from 'typeorm';
 import { v4 as uuid } from 'uuid';
 import { MongoVideosRepository } from '../MongoVideosRepository';

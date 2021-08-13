@@ -1,6 +1,6 @@
 import { FindManyOptions, getMongoRepository, MongoRepository } from 'typeorm';
-import { ICreateCategoryRequestDTO } from '../../useCases/CreateCategory/CreateCategoryDTO';
 import Category from '../../schemas/Category';
+import { ICreateCategoryRequestDTO } from '../../useCases/CreateCategory/CreateCategoryDTO';
 import { ICategoriesRepository } from '../ICategoriesRepository';
 
 class MongoCategoriesRepository implements ICategoriesRepository {
@@ -10,15 +10,15 @@ class MongoCategoriesRepository implements ICategoriesRepository {
         this.ormRepository = getMongoRepository(Category);
     }
 
-    findByTitle(title: string): Promise<Category | undefined> {
+    async findByTitle(title: string): Promise<Category | undefined> {
         return this.ormRepository.findOne({ where: { title } });
     }
 
-    findById(id: string): Promise<Category | undefined> {
+    async findById(id: string): Promise<Category | undefined> {
         return this.ormRepository.findOne(id);
     }
 
-    createAndSave(data: ICreateCategoryRequestDTO): Promise<Category> {
+    async createAndSave(data: ICreateCategoryRequestDTO): Promise<Category> {
         const category = this.ormRepository.create(data);
 
         return this.ormRepository.save(category);

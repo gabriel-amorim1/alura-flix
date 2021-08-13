@@ -5,8 +5,10 @@ import {
     Entity,
     ObjectID,
     ObjectIdColumn,
+    OneToMany,
     UpdateDateColumn,
 } from 'typeorm';
+import Video from '../../video/schemas/Video';
 
 @Entity('categories')
 class Category {
@@ -27,6 +29,9 @@ class Category {
 
     @DeleteDateColumn()
     deleted_at: Date | null;
+
+    @OneToMany(() => Video, video => video.category)
+    videos?: Video[];
 }
 
 export default Category;

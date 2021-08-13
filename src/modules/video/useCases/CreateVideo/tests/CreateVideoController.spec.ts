@@ -1,10 +1,11 @@
+import Bson_ObjectId from 'bson-objectid';
 import sinon from 'sinon';
 import { ValidationError } from 'yup';
 import { verifyIfParamIsInErrors } from '../../../../../utils/errors/functions/verifyIfParamIsInErrors';
 import { CreateVideoController } from '../CreateVideoController';
 import { CreateVideoUseCase } from '../CreateVideoUseCase';
 
-describe('Create Video Controller Context', () => {
+describe('CreateVideoController Context', () => {
     let createVideoUseCaseSpy: sinon.SinonStubbedInstance<CreateVideoUseCase>;
     let createVideoController: CreateVideoController;
     let mockResponse: any;
@@ -16,19 +17,19 @@ describe('Create Video Controller Context', () => {
         );
 
         mockResponse = () => {
-            const res: any = {};
+            const response: any = {};
 
-            res.status = (code: number) => {
-                res.code = code;
-                return res;
+            response.status = (code: number) => {
+                response.code = code;
+                return response;
             };
 
-            res.json = (body: any) => {
-                res.body = body;
-                return res;
+            response.json = (body: any) => {
+                response.body = body;
+                return response;
             };
 
-            return res;
+            return response;
         };
     });
 
@@ -42,26 +43,28 @@ describe('Create Video Controller Context', () => {
                 title: 'Test title',
                 description: 'Test description',
                 url: 'http://www.test.com/',
+                category_id: new Bson_ObjectId().toHexString().toString(),
             },
         };
 
         createVideoUseCaseSpy.execute.resolves(<any>'created video');
 
-        const res = (await createVideoController.handle(
+        const response = (await createVideoController.handle(
             request,
             mockResponse(),
         )) as any;
 
-        expect(res.body).toBe('created video');
-        expect(res.code).toBe(201);
+        expect(response.body).toBe('created video');
+        expect(response.code).toBe(201);
     });
 
-    it('should return status 400 - ValidationError', async () => {
+    it('should return ValidationError - invalid params', async () => {
         expect.hasAssertions();
 
         const request = <any>{
             body: {
                 url: 'invalid-url',
+                category_id: 'invalid-id',
             },
         };
 
@@ -70,7 +73,12 @@ describe('Create Video Controller Context', () => {
         } catch (error) {
             expect(error).toBeInstanceOf(ValidationError);
             expect(
-                verifyIfParamIsInErrors(error, ['title', 'description', 'url']),
+                verifyIfParamIsInErrors(error, [
+                    'title',
+                    'description',
+                    'url',
+                    'category_id',
+                ]),
             ).toBeTruthy();
         }
     });

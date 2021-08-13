@@ -1,8 +1,9 @@
+import Bson_ObjectId from 'bson-objectid';
 import { Connection } from 'typeorm';
 import { v4 as uuid } from 'uuid';
-import { MongoVideosRepository } from '../MongoVideosRepository';
 import connect, { stopMongo } from '../../../../../database/connection';
 import Video from '../../../schemas/Video';
+import { MongoVideosRepository } from '../MongoVideosRepository';
 
 describe('MongoVideosRepository Context', () => {
     let mongoVideosRepository: MongoVideosRepository;
@@ -18,6 +19,7 @@ describe('MongoVideosRepository Context', () => {
             title: 'title',
             description: 'description',
             url: uuid(),
+            category_id: new Bson_ObjectId().toHexString().toString(),
         };
 
         videoSut = await mongoVideosRepository.createAndSave(data);
@@ -35,13 +37,20 @@ describe('MongoVideosRepository Context', () => {
             url: uuid(),
         };
 
-        const { _id, created_at, updated_at, deleted_at, ...entityProps } =
-            await mongoVideosRepository.createAndSave(data);
+        const {
+            _id,
+            category_id,
+            created_at,
+            updated_at,
+            deleted_at,
+            ...entityProps
+        } = await mongoVideosRepository.createAndSave(data);
 
         expect(_id).not.toBeUndefined();
         expect(created_at).not.toBeUndefined();
         expect(updated_at).not.toBeUndefined();
         expect(deleted_at).toBeNull();
+        expect(category_id).toBeNull();
         expect(data).toEqual(entityProps);
     });
 

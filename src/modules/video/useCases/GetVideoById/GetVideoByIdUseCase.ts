@@ -15,7 +15,7 @@ export class GetVideoByIdUseCase {
         const videoFound = await this.videosRepository.findById(id);
 
         if (!videoFound) {
-            throw new HttpError(404, 'Video not found.');
+            throw new HttpError(404, 'Video not found');
         }
 
         return videoFound;

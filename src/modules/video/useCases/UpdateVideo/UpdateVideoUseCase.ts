@@ -16,7 +16,7 @@ export class UpdateVideoUseCase {
         const videoFound = await this.videosRepository.findById(id);
 
         if (!videoFound) {
-            throw new HttpError(404, 'Video not found.');
+            throw new HttpError(404, 'Video not found');
         }
 
         if (data.url) {
@@ -25,7 +25,7 @@ export class UpdateVideoUseCase {
             );
 
             if (videoAlreadyExists) {
-                throw new HttpError(400, 'This url is already registered.');
+                throw new HttpError(400, 'This url is already registered');
             }
         }
 

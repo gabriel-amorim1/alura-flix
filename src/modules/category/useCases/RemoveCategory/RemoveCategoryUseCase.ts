@@ -18,6 +18,10 @@ class RemoveCategoryUseCase {
             throw new HttpError(404, 'Category not found');
         }
 
+        if (category.deleted_at) {
+            throw new HttpError(400, 'This category is already deleted');
+        }
+
         return this.categoriesRepository.remove(category);
     }
 }

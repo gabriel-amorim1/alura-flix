@@ -1,6 +1,5 @@
 /* eslint-disable no-underscore-dangle */
 import { Connection } from 'typeorm';
-import { v4 as uuid } from 'uuid';
 import { MongoCategoriesRepository } from '../MongoCategoriesRepository';
 import connect, { stopMongo } from '../../../../../database/connection';
 import Category from '../../../schemas/Category';
